@@ -9,9 +9,14 @@ public class Board {
         }
     }
 
-    public void displayBoard() {
-        for (Moves space : board) {
-            System.out.println(space.getValue());
+    public void displayBoard() { //nicely displays the board as a 2d grid 3x3
+        System.out.println("+---+---+---+");
+        for (int i = 0; i < BOARD_SIZE; ++i) {
+            System.out.print("| " + board[i].getValue() + " ");
+            if (i % 3 == 2) { //for every third value go to new line, so we display rows of 3
+                System.out.println("|");
+                System.out.println("+---+---+---+");
+            }
         }
     }
 }
