@@ -8,16 +8,26 @@ public class Main {
         Board gameBoard = new Board();
         MinimaxAi computer = new MinimaxAi();
 
-        while (true) { 
-            gameBoard.displayBoard();
+        Moves playerMove = Moves.X;
+        Moves computerMove = Moves.O;
+
+        while (true) { //Game loop
             //player turn
-            gameBoard.makeMove(makePlayerMove(gameBoard.getValidMoves(), scanner), Moves.X); //player move
-            //TODO: check win
+            clearScreen();
+            gameBoard.displayBoard();
+            gameBoard.makeMove(makePlayerMove(gameBoard.getValidMoves(), scanner), playerMove); //player move
+            if (gameBoard.hasWon(playerMove)) {
+                System.out.println("Player wins!");
+                break;
+            }
 
 
             //computer turn
-            gameBoard.displayBoard();
-            gameBoard.makeMove(makeComputerMove(gameBoard.getValidMoves()), Moves.O);
+            gameBoard.makeMove(makeComputerMove(gameBoard.getValidMoves()), computerMove);
+            if (gameBoard.hasWon(computerMove)) {
+                System.out.println("Computer wins!");
+                break;
+            }
         }
     }
 
@@ -25,7 +35,6 @@ public class Main {
         int playerMove;
         
         while (true) { // gets user input
-            System.out.println(validMoves);
             System.out.print("Enter move (1-9): ");
 
             try {
@@ -53,5 +62,10 @@ public class Main {
         Random rng = new Random();
 
         return validMoves.get(rng.nextInt(validMoves.size()));
+    }
+
+    static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }

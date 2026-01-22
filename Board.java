@@ -4,6 +4,21 @@ import java.util.ArrayList;
 public class Board {
     private final Moves[] board;
     private final int BOARD_SIZE = 9;
+    private final int[][] WIN_COMBOS = {
+        //horizontal wins
+        {0, 1, 2},
+        {3, 4, 5},
+        {6, 7, 8},
+
+        //vertical wins
+        {0, 3, 6},
+        {1, 4, 7},
+        {2, 5, 8},
+
+        //diagonal wins
+        {0, 4, 8},
+        {2, 4, 6}
+    };
 
     public Board() {
         board = new Moves[BOARD_SIZE];
@@ -42,5 +57,16 @@ public class Board {
             }
         }
         return validMoves;
+    }
+
+    public boolean hasWon(Moves move) {
+        for (int[] line : WIN_COMBOS) {
+            if (board[line[0]] == move &&
+                board[line[1]] == move &&
+                board[line[2]] == move) {
+                return true;
+            }
+        }
+        return false;
     }
 }
