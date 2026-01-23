@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 /*
@@ -42,7 +41,7 @@ public class Main {
 
 
             //computer turn
-            gameBoard.makeMove(makeComputerMove(gameBoard.getValidMoves()), computerMove);
+            gameBoard.makeMove(makeComputerMove(gameBoard.getValidMoves(), gameBoard, computer), computerMove);
             if (gameBoard.hasWon(computerMove)) {
                 clearScreen();
                 gameBoard.displayBoard();
@@ -84,10 +83,10 @@ public class Main {
         return playerMove - 1;
     }
 
-    static int makeComputerMove(ArrayList<Integer> validMoves) { //for now just a random computer move
-        Random rng = new Random();
-
-        return validMoves.get(rng.nextInt(validMoves.size()));
+    static int makeComputerMove(ArrayList<Integer> validMoves, Board board, MinimaxAi computer) { //for now just a random computer move
+        int depth = validMoves.size();
+        double[] bestMove = computer.minimax(board, depth, Moves.O);
+        return (int) bestMove[0];
     }
 
     static void clearScreen() {
