@@ -49,7 +49,7 @@ public class Board {
         board[index] = move;
     }
 
-    public ArrayList<Integer> getValidMoves() {
+    public ArrayList<Integer> getValidMoves() { //Gets all available spaces
         ArrayList<Integer> validMoves = new ArrayList<>();
         for (int i = 0; i < BOARD_SIZE; ++i) {
             if (board[i] == Moves.EMPTY) {
@@ -67,6 +67,12 @@ public class Board {
                 return true;
             }
         }
+
         return false;
+    }
+
+    public boolean isTie() {
+        ArrayList<Integer> validMoves = getValidMoves();
+        return validMoves.isEmpty();
     }
 }

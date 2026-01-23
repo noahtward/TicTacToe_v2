@@ -2,6 +2,18 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+/*
+*
+*   TODO:
+*
+*   1. Allow check win to account for ties/cat's games
+*   2. Prototype minimax ai function
+*   3. Create minimax ai in it's class file, and then implement it in Main.java
+*
+*
+*
+*/
+
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -17,7 +29,14 @@ public class Main {
             gameBoard.displayBoard();
             gameBoard.makeMove(makePlayerMove(gameBoard.getValidMoves(), scanner), playerMove); //player move
             if (gameBoard.hasWon(playerMove)) {
+                clearScreen();
+                gameBoard.displayBoard();
                 System.out.println("Player wins!");
+                break;
+            } else if (gameBoard.isTie()) {
+                clearScreen();
+                gameBoard.displayBoard();
+                System.out.println("It's a tie!");
                 break;
             }
 
@@ -25,7 +44,14 @@ public class Main {
             //computer turn
             gameBoard.makeMove(makeComputerMove(gameBoard.getValidMoves()), computerMove);
             if (gameBoard.hasWon(computerMove)) {
+                clearScreen();
+                gameBoard.displayBoard();
                 System.out.println("Computer wins!");
+                break;
+            } else if (gameBoard.isTie()) {
+                clearScreen();
+                gameBoard.displayBoard();
+                System.out.println("It's a tie!");
                 break;
             }
         }
